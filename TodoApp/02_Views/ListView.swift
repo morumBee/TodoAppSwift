@@ -10,14 +10,14 @@ import SwiftUI
 struct ListView: View {
     @State var itemLists = [
         ItemModel(text: "visit office"),
-        ItemModel(text: "buy milk"),
+        ItemModel(text: "buy milk", isDone: true),
         ItemModel(text: "buy eggs"),
     ]
     var body: some View {
         VStack {
             List {
-                ForEach(itemLists) {item in
-                    Text(item.text)
+                ForEach(itemLists) { item in
+                    ItemView(item: item)
                 }
             }
         }
