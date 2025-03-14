@@ -5,7 +5,7 @@
 //  Created by Morumbi on 3/13/25.
 //
 
-// 1. [Feat] create AddItemView / Add addText func
+// 1. [Feat] Add addText func
 // 2. [Feat] Add Delete func
 // 2. [Feat] Add Toggle isDone func
 // 3. [Feat] set up memory
