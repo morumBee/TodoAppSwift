@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct ListView: View {
-    @State var itemLists = [
-        ItemModel(text: "visit office"),
-        ItemModel(text: "buy milk", isDone: true),
-        ItemModel(text: "buy eggs"),
-    ]
+    @EnvironmentObject var todoListViewModel: TodoListViewModel
     var body: some View {
         VStack {
             List {
-                ForEach(itemLists) { item in
+                ForEach(todoListViewModel.items) { item in
                     ItemView(item: item)
                 }
             }
@@ -29,4 +25,7 @@ struct ListView: View {
     NavigationView {
         ListView()
     }
+    .environmentObject(TodoListViewModel())
 }
+
+

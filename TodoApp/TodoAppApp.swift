@@ -14,6 +14,7 @@ struct TodoAppApp: App {
             NavigationView {
                 ListView()
             }
+            .environmentObject(TodoListViewModel())
         }
     }
 }
