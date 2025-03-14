@@ -5,6 +5,11 @@
 //  Created by Morumbi on 3/13/25.
 //
 
+// 1. [Feat] create AddItemView / Add addText func
+// 2. [Feat] Add Delete func
+// 2. [Feat] Add Toggle isDone func
+// 3. [Feat] set up memory
+
 import SwiftUI
 
 struct ListView: View {
@@ -18,6 +23,16 @@ struct ListView: View {
             }
         }
         .navigationTitle("Todo list")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                EditButton()
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink("Add") { 
+                    AddItemView()
+                }
+            }
+        }
     }
 }
 
@@ -27,5 +42,3 @@ struct ListView: View {
     }
     .environmentObject(TodoListViewModel())
 }
-
-
