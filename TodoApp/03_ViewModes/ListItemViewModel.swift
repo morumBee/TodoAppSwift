@@ -23,9 +23,17 @@ class TodoListViewModel: ObservableObject {
 
         items.append(contentsOf: newItems)
     }
-    
+
     func AddItem(_ text: String) {
         let newItem = TodoItem(text: text)
         items.append(newItem)
+    }
+
+    func removeItem(_ indexSet: IndexSet) {
+        items.remove(atOffsets: indexSet)
+    }
+
+    func moveItem(_ indexSet: IndexSet, _ index: Int) {
+        items.move(fromOffsets: indexSet, toOffset: index)
     }
 }

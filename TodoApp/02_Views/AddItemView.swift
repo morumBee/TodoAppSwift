@@ -42,8 +42,10 @@ struct AddItemView: View {
         }
         .padding(20)
         .navigationBarTitle("Add Item")
-        .alert(isPresented: $isSaveError) {
-            .init(title: Text("Save Error"), message: Text("Please enter more than 4 characters"), dismissButton: .default(Text("OK")))
+        .alert("Error Save", isPresented: $isSaveError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("input must be at least 4 characters long")
         }
     }
 
@@ -59,3 +61,11 @@ struct AddItemView: View {
         AddItemView()
     }
 }
+
+//
+// .alert("Error Uploading", isPresented: $showAlert) {
+//           Button("DELETE", role: .destructive) {}
+//           Button("Cancel", role: .cancel) {}
+//       } message: {
+//           Text("The video could not be uploaded")
+//       }
