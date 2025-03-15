@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemModel : Identifiable {
+struct TodoItem : Identifiable {
     var id: String = UUID().uuidString
     var text: String
     var isDone: Bool = false

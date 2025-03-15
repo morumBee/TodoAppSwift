@@ -5,23 +5,34 @@
 //  Created by Morumbi on 3/13/25.
 //
 
+// 1. [Feat] Add addText func
+// 2. [Feat] Add Delete func
+// 2. [Feat] Add Toggle isDone func
+// 3. [Feat] set up memory
+
 import SwiftUI
 
 struct ListView: View {
-    @State var itemLists = [
-        ItemModel(text: "visit office"),
-        ItemModel(text: "buy milk", isDone: true),
-        ItemModel(text: "buy eggs"),
-    ]
+    @EnvironmentObject var todoListViewModel: TodoListViewModel
     var body: some View {
         VStack {
             List {
-                ForEach(itemLists) { item in
+                ForEach(todoListViewModel.items) { item in
                     ItemView(item: item)
                 }
             }
         }
         .navigationTitle("Todo list")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                EditButton()
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink("Add") { 
+                    AddItemView()
+                }
+            }
+        }
     }
 }
 
@@ -29,4 +40,5 @@ struct ListView: View {
     NavigationView {
         ListView()
     }
+    .environmentObject(TodoListViewModel())
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemView: View {
-    @State var item: ItemModel
+    @State var item: TodoItem
     var body: some View {
         HStack {
             Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
@@ -22,5 +22,5 @@ struct ItemView: View {
 }
 
 #Preview {
-    ItemView(item: ItemModel(text: "Test Item", isDone: false))
+    ItemView(item: TodoItem(text: "Test Item", isDone: false))
 }
