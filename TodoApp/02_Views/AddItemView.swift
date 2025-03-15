@@ -11,7 +11,8 @@ struct AddItemView: View {
     @State var textFieldText: String = ""
     @EnvironmentObject var todoListViewModel: TodoListViewModel
     @Environment(\.dismiss) var dismiss
-    
+    @State var isSaveError: Bool = false
+
     var body: some View {
         VStack(spacing: 15) {
             TextField("Enter item", text: $textFieldText)
@@ -21,8 +22,11 @@ struct AddItemView: View {
                 .clipShape(.rect(cornerRadius: 10))
 
             Button {
-                AddItem(textFieldText)
-                dismiss()
+                clickSaveButton()
+                if !isSaveError {
+                    todoListViewModel.AddItem(textFieldText)
+                    dismiss()
+                }
             }
             label: {
                 Text("save".uppercased())
@@ -38,11 +42,15 @@ struct AddItemView: View {
         }
         .padding(20)
         .navigationBarTitle("Add Item")
+        .alert(isPresented: $isSaveError) {
+            .init(title: Text("Save Error"), message: Text("Please enter more than 4 characters"), dismissButton: .default(Text("OK")))
+        }
     }
 
-    func AddItem(_ text: String) {
-        let newItem = TodoItem(text: text)
-        todoListViewModel.items.append(newItem)
+    func clickSaveButton() {
+        if textFieldText.count < 4 {
+            isSaveError = true
+        }
     }
 }
 

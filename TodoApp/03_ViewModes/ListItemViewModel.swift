@@ -23,4 +23,9 @@ class TodoListViewModel: ObservableObject {
 
         items.append(contentsOf: newItems)
     }
+    
+    func AddItem(_ text: String) {
+        let newItem = TodoItem(text: text)
+        items.append(newItem)
+    }
 }
