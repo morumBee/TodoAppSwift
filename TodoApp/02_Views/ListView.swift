@@ -20,6 +20,8 @@ struct ListView: View {
                 ForEach(todoListViewModel.items) { item in
                     ItemView(item: item)
                 }
+                .onDelete(perform: todoListViewModel.removeItem)
+                .onMove(perform: todoListViewModel.moveItem)
             }
         }
         .navigationTitle("Todo list")
@@ -28,7 +30,7 @@ struct ListView: View {
                 EditButton()
             }
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink("Add") { 
+                NavigationLink("Add") {
                     AddItemView()
                 }
             }
