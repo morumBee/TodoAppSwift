@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct AddItemView: View {
+    @State var textFieldText: String = ""
+    @EnvironmentObject var todoListViewModel: TodoListViewModel
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack(spacing: 15) {
-            TextField("Enter item", text: .constant(""))
+            TextField("Enter item", text: $textFieldText)
                 .frame(height: 50)
                 .padding(.horizontal, 15)
                 .background(Color.gray.opacity(0.2))
                 .clipShape(.rect(cornerRadius: 10))
 
-            Button(action: {}) {
+            Button {
+                AddItem(textFieldText)
+                dismiss()
+            }
+            label: {
                 Text("save".uppercased())
                     .font(.headline)
                     .fontWeight(.semibold)
@@ -30,6 +38,11 @@ struct AddItemView: View {
         }
         .padding(20)
         .navigationBarTitle("Add Item")
+    }
+
+    func AddItem(_ text: String) {
+        let newItem = TodoItem(text: text)
+        todoListViewModel.items.append(newItem)
     }
 }
 
