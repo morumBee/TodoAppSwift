@@ -7,8 +7,18 @@
 
 import Foundation
 
-struct TodoItem : Identifiable {
-    var id: String = UUID().uuidString
-    var text: String
-    var isDone: Bool = false
+struct TodoItem: Identifiable, Codable {
+    let id: String
+    let text: String
+    let isDone: Bool
+
+    init(id: String = UUID().uuidString, text: String, isDone: Bool = false) {
+        self.id = id
+        self.text = text
+        self.isDone = isDone
+    }
+
+    func toggleIsDone() -> TodoItem {
+        TodoItem(id: id, text: text, isDone: !isDone)
+    }
 }
