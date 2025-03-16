@@ -8,20 +8,24 @@
 import Foundation
 
 class TodoListViewModel: ObservableObject {
-    @Published var items: [TodoItem] = []
+    @Published var items: [TodoItem] = [] {
+        didSet {
+            saveItems()
+        }
+    }
+
+    let itemsKey = "items_key"
 
     init() {
         getItems()
     }
 
     func getItems() {
-        let newItems = [
-            TodoItem(text: "visit office"),
-            TodoItem(text: "buy milk", isDone: true),
-            TodoItem(text: "buy eggs")
-        ]
-
-        items.append(contentsOf: newItems)
+        guard
+            let data = UserDefaults.standard.data(forKey: itemsKey),
+            let savedItems = try? JSONDecoder().decode([TodoItem].self, from: data)
+        else { return }
+        items = savedItems
     }
 
     func AddItem(_ text: String) {
@@ -35,5 +39,19 @@ class TodoListViewModel: ObservableObject {
 
     func moveItem(_ indexSet: IndexSet, _ index: Int) {
         items.move(fromOffsets: indexSet, toOffset: index)
+    }
+
+    func updateIsDoneItem(_ item: TodoItem) {
+        let id = item.id
+        let targetIdx = items.firstIndex(where: { $0.id == id })
+        if let targetIdx {
+            items[targetIdx] = item.toggleIsDone()
+        }
+    }
+
+    func saveItems() {
+        if let encodedData = try? JSONEncoder().encode(items) {
+            UserDefaults.standard.set(encodedData, forKey: itemsKey)
+        }
     }
 }

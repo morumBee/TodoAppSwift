@@ -61,11 +61,3 @@ struct AddItemView: View {
         AddItemView()
     }
 }
-
-//
-// .alert("Error Uploading", isPresented: $showAlert) {
-//           Button("DELETE", role: .destructive) {}
-//           Button("Cancel", role: .cancel) {}
-//       } message: {
-//           Text("The video could not be uploaded")
-//       }

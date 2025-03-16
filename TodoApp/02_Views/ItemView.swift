@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ItemView: View {
-    @State var item: TodoItem
+    @Binding var item: TodoItem
+    @EnvironmentObject var todoListViewModel: TodoListViewModel
     var body: some View {
         HStack {
             Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
                 .font(.system(.title3))
                 .foregroundStyle(item.isDone ? Color.accentColor : .gray)
+                .onTapGesture {
+                    todoListViewModel.updateIsDoneItem(item)
+                }
             Text(item.text)
                 .font(.headline)
                 .padding(.leading, 6)
@@ -22,5 +26,6 @@ struct ItemView: View {
 }
 
 #Preview {
-    ItemView(item: TodoItem(text: "Test Item", isDone: false))
+    ItemView(item: .constant(TodoItem(text: "Test Item", isDone: false)))
+        .environmentObject(TodoListViewModel())
 }
